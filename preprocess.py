@@ -1,6 +1,6 @@
 import os
-# from keras.preprocessing.text import Tokenizer
-# from keras_preprocessing.sequence import pad_sequences
+from keras.preprocessing.text import Tokenizer
+from keras_preprocessing.sequence import pad_sequences
 
 def read_data(path_data):
 

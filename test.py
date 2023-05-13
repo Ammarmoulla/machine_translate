@@ -3,10 +3,9 @@ from preprocess import show_some_sample_and_some_statics
 from preprocess import convert_text_to_tokenize
 from preprocess import padding
 
-
 show_some_sample_and_some_statics(
-        "E:\\repos\\machine_translate\\data\\small_vocab_en",
-        "E:\\repos\\machine_translate\\data\\small_vocab_fr",
+        "/content/machine_translate/data/small_vocab_en",
+        "/content/machine_translate/data/small_vocab_fr",
          4)
 
 text = [
