@@ -1,4 +1,5 @@
 import os
+import numpy as np
 from keras.preprocessing.text import Tokenizer
 from keras_preprocessing.sequence import pad_sequences
 
@@ -42,3 +43,11 @@ def full_process(_input, _output, length, type_pad="post"):
   pad_output = padding(seq_output, length_of_pad=length, type_pad=type_pad)
   
   return pad_input, pad_output, token_input, token_output
+
+def ids_to_words(ids, tokenizer):
+
+    index_to_words = {id: word for word, id in tokenizer.word_index.items()}
+    index_to_words[0] = '<P>'
+
+    return ' '.join([index_to_words[prediction] for prediction in np.argmax(ids, 1)])
+

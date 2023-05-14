@@ -4,6 +4,8 @@ from preprocess import show_some_sample_and_some_statics
 from preprocess import convert_text_to_tokenize
 from preprocess import padding
 from preprocess import full_process
+from preprocess import ids_to_words
+
 
 show_some_sample_and_some_statics(
         "/content/machine_translate/data/small_vocab_en",
@@ -51,3 +53,10 @@ print("Max French sequence length:", maxlen_fr_sequence)
 print("English vocabulary size:", dict_en_size)
 print("French vocabulary size:", dict_fr_size)
 print("==========================")
+
+
+print(ids_to_words([[1, 2, 3, 4],
+                    [2 , 1, 4, 0],
+                    [10, 11, 12, 13],
+                    [15, 16, 0, 0]],
+                    token_fr))
