@@ -19,7 +19,7 @@ jobs:
 
       - name: Build Docker image and Run tests
         run: |
-          docker build --file Dockerfile --tag ammarmoulla/machine_translate:v1
+          docker build . --file Dockerfile --tag ammarmoulla/machine_translate:v1
           docker run ammarmoulla/machine_translate:v1
           
   
