@@ -21,17 +21,17 @@ jobs:
         run: |
           docker build --file Dockerfile --tag ammarmoulla/machine_translate:v1
           docker run ammarmoulla/machine_translate:v1
+          
   
   push:
     name: Push To Docker
     runs-on: ubuntu-latest
-    needs: [test]
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
         
       - name: build and push
-      run: |
+        run: |
           docker build . --file Dockerfile --tag ammarmoulla/machine_translate:v1
           docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
           docker push ammarmoulla/machine_translate:v1
