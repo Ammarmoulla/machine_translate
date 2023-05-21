@@ -36,20 +36,24 @@ for i, (sent, sequence, pad) in enumerate(zip(text, sequences, pad_sequences)):
   print("==========================")
 
 
+print('Data Preprocessed')
 en_input = read_data("/content/machine_translate/data/small_vocab_en")
 fr_output = read_data("/content/machine_translate/data/small_vocab_fr")
 length = None
 type_pad = "post"
+
 process_input, process_output, token_en, token_fr = full_process(en_input, fr_output, length=length, type_pad=type_pad)
+
     
 maxlen_en_sequence = process_input.shape[1]
 maxlen_fr_sequence = process_output.shape[1]
 dict_en_size = len(token_en.word_index)
 dict_fr_size = len(token_fr.word_index)
 
-print('Data Preprocessed')
-print("Max English sequence length:", maxlen_en_sequence)
-print("Max French sequence length:", maxlen_fr_sequence)
+print("Max English sequence length after processing:", maxlen_en_sequence)
+print("Max French sequence length: after processing:", maxlen_fr_sequence)
+
+
 print("English vocabulary size:", dict_en_size)
 print("French vocabulary size:", dict_fr_size)
 print("==========================")
