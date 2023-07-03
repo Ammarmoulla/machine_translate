@@ -46,7 +46,7 @@ def padding(x, length_of_pad=None, type_pad="pre"):
 
 
 def full_process(_input, _output, length=None, type_pad="post"):
-  
+
   seq_input, token_input = convert_text_to_tokenize(_input)
   seq_output, token_output = convert_text_to_tokenize(_output)
 

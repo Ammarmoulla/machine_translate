@@ -1,0 +1,13 @@
+en_url : "data/small_vocab_en"
+fr_url : "data/small_vocab_fr"
+type_model : "Rnn_Embd"
+learning_rate : 0.004
+type_device : "gpu"
+number_sample : 137861
+batch_size : 512
+epochs : 10
+validation_split : 0.2
+
+
+
+# structre model
