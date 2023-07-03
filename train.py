@@ -2,12 +2,13 @@ from preprocess import read_data, full_process
 from models import motor
 import argparse
 import yaml
-
+import pickle
+import tensorflow as tf
 
 
 def train(config_path):
 
-    with open('/content/config.yaml', 'r') as file:
+    with open(config_path, 'r') as file:
         config = yaml.safe_load(file)
 
     en_url = config['en_url']
@@ -16,6 +17,10 @@ def train(config_path):
     fr_output = read_data(fr_url)
 
     process_input, process_output, token_en, token_fr = full_process(en_input, fr_output, length=None, type_pad="post")
+
+    with open('outputs/tokenizer.pkl', 'wb') as f:
+        pickle.dump(token_fr, f)
+
     dict_en_size = len(token_en.word_index)
     dict_fr_size = len(token_fr.word_index)
 
@@ -32,20 +37,34 @@ def train(config_path):
     batch_size = config['batch_size']
     epochs = config['epochs']
     validation_split = config['validation_split']
-
-    history = model.fit(
-        process_input[:number_sample],
-        process_output[:number_sample],
-        batch_size=batch_size,
-        epochs=epochs,
-        validation_split=validation_split,
-        )
-    return history
+    type_device = config['type_device']
+    
+    if type_device == "GPU":
+      with tf.device('/GPU:0'):
+        history = model.fit(
+          process_input[:number_sample],
+          process_output[:number_sample],
+          batch_size=batch_size,
+          epochs=epochs,
+          validation_split=validation_split,
+          shuffle=True
+          )
+    else:
+      history = model.fit(
+          process_input[:number_sample],
+          process_output[:number_sample],
+          batch_size=batch_size,
+          epochs=epochs,
+          validation_split=validation_split,
+          shuffle=True
+          )
+    
+    model.save('outputs/model.h5')
 
 
 if __name__ == '__main__':
    parser = argparse.ArgumentParser(description='Process some URLs.')
-   parser.add_argument('--config', type=str, help='The URL for configuration train')
+   parser.add_argument('--config_path', type=str, help='The URL for configuration train')
    args = parser.parse_args()
 
    config_path = args.config_path

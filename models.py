@@ -23,6 +23,7 @@ def motor(input_shape, dict_en_size, dict_fr_size, type_model, learning_rate):
             model.add(Dropout(0.5))
             model.add(TimeDistributed(Dense(dict_fr_size, activation='softmax'))) 
 
+    print(model.summary())
     model.compile(loss=sparse_categorical_crossentropy,
                   optimizer=Adam(learning_rate),
                   metrics=['accuracy'])
