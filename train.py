@@ -18,7 +18,10 @@ def train(config_path):
 
     process_input, process_output, token_en, token_fr = full_process(en_input, fr_output, length=None, type_pad="post")
 
-    with open('outputs/tokenizer.pkl', 'wb') as f:
+    with open('outputs/tokenizer_en.pkl', 'wb') as f:
+        pickle.dump(token_en, f)
+    
+    with open('outputs/tokenizer_fr.pkl', 'wb') as f:
         pickle.dump(token_fr, f)
 
     dict_en_size = len(token_en.word_index)
