@@ -21,7 +21,22 @@ def motor(input_shape, dict_en_size, dict_fr_size, type_model, learning_rate):
             model.add(GRU(256, return_sequences=True))    
             model.add(TimeDistributed(Dense(1024, activation='relu')))
             model.add(Dropout(0.5))
-            model.add(TimeDistributed(Dense(dict_fr_size, activation='softmax'))) 
+            model.add(TimeDistributed(Dense(dict_fr_size, activation='softmax')))
+            
+    elif type_model == "Lstm":
+        
+        model.add(LSTM(256, input_shape=input_shape[1:], return_sequences=True))
+        model.add(TimeDistributed(Dense(1024, activation='relu')))
+        model.add(Dropout(0.5))
+        model.add(TimeDistributed(Dense(dict_fr_size, activation='softmax'))) 
+
+    elif type_model == "Lstm_Embd":
+
+        model.add(Embedding(dict_en_size, 256, input_length=input_shape[1], input_shape=input_shape[1:]))
+        model.add(LSTM(256, return_sequences=True))    
+        model.add(TimeDistributed(Dense(1024, activation='relu')))
+        model.add(Dropout(0.5))
+        model.add(TimeDistributed(Dense(dict_fr_size, activation='softmax'))) 
 
     print(model.summary())
     model.compile(loss=sparse_categorical_crossentropy,
