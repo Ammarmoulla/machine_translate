@@ -5,4 +5,5 @@ numpy==1.22
 six==1.16.0
 PyYAML==6.0
 pickleshare==0.7.5
+wandb==0.15.5
 

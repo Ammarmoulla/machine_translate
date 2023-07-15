@@ -1,10 +1,10 @@
 import numpy as np
-from preprocess import read_data
-from preprocess import show_some_sample_and_some_statics
-from preprocess import convert_text_to_tokenize
-from preprocess import padding
-from preprocess import full_process
-from preprocess import ids_to_words
+from train.preprocess import read_data
+from train.preprocess import show_some_sample_and_some_statics
+from train.preprocess import convert_text_to_tokenize
+from train.preprocess import padding
+from train.preprocess import full_process
+from train.preprocess import ids_to_words
 
 
 show_some_sample_and_some_statics(

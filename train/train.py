@@ -1,10 +1,13 @@
-from preprocess import read_data, full_process
-from models import motor
+from train.preprocess import read_data, full_process
+from train.models import motor
 import argparse
 import yaml
 import pickle
 import tensorflow as tf
-
+# import wandb
+# from wandb.keras import WandbCallback
+# wandb.login()
+# wandb.init(project='machine_translation')
 
 def train(config_path):
 
@@ -50,7 +53,8 @@ def train(config_path):
           batch_size=batch_size,
           epochs=epochs,
           validation_split=validation_split,
-          shuffle=True
+          shuffle=True,
+          # callbacks=[WandbCallback()]
           )
     else:
       history = model.fit(
@@ -59,7 +63,8 @@ def train(config_path):
           batch_size=batch_size,
           epochs=epochs,
           validation_split=validation_split,
-          shuffle=True
+          shuffle=True,
+          # callbacks=[WandbCallback()]
           )
     
     model.save('outputs/model.h5')
