@@ -2,7 +2,7 @@ import os
 import pickle
 import numpy as np
 from keras.models import load_model
-from train.preprocess import padding, ids_to_words
+from preprocess import padding, ids_to_words
 
 model = load_model('outputs/model.h5')
 

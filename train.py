@@ -1,5 +1,5 @@
-from train.preprocess import read_data, full_process
-from train.models import motor
+from preprocess import read_data, full_process
+from models import motor
 import argparse
 import yaml
 import pickle
