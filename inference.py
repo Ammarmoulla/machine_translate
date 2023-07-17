@@ -19,4 +19,9 @@ print(sequences)
 
 x = padding(sequences, length_of_pad=21, type_pad="post")
 y_pred = model.predict(x)[0]
-print(ids_to_words(y_pred, token_fr))
+output = ids_to_words(y_pred, token_fr)
+print()
+print("=========prediction=========")
+for word in output.split():
+  if word != "<P>":
+    print(word, end=" ")

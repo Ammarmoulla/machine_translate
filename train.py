@@ -27,17 +27,29 @@ def train(config_path):
     with open('outputs/tokenizer_fr.pkl', 'wb') as f:
         pickle.dump(token_fr, f)
 
-    dict_en_size = len(token_en.word_index)
-    dict_fr_size = len(token_fr.word_index)
+    dict_en_size = len(token_en.word_index) + 1
+    dict_fr_size = len(token_fr.word_index) + 1
 
     
     type_model = config['type_model']
-    if type_model != "Rnn":
+    if type_model not in ["Rnn","Lstm"]:
       process_input = process_input.reshape(process_input.shape[0], process_input.shape[1])
     input_shape = process_input.shape
 
+    n_neurons_embedding = config['n_neurons_embedding']
+    n_neurons_rnn = config['n_neurons_rnn']
+    n_neurons_lstm = config['n_neurons_lstm']
+    n_neurons_timedistributed = config['n_neurons_timedistributed']
     learning_rate = config['learning_rate']
-    model = motor(input_shape, dict_en_size, dict_fr_size, type_model, learning_rate)
+    model = motor(input_shape, 
+                  dict_en_size, 
+                  dict_fr_size, 
+                  type_model,
+                  n_neurons_embedding,
+                  n_neurons_rnn,
+                  n_neurons_lstm,
+                  n_neurons_timedistributed,
+                  learning_rate)
 
     number_sample = config['number_sample']
     batch_size = config['batch_size']

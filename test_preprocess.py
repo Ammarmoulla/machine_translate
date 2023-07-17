@@ -6,7 +6,7 @@ from preprocess import padding
 from preprocess import full_process
 from preprocess import ids_to_words
 
-
+print("===============show_some_sample_and_some_statics===============")
 show_some_sample_and_some_statics(
         "/content/machine_translate/data/small_vocab_en",
         "/content/machine_translate/data/small_vocab_fr",
@@ -19,14 +19,15 @@ text = [
     ]
     
 #token_and_sequences
+print("===============convert_text_to_tokenize===============")
 sequences, token = convert_text_to_tokenize(text)
 dictonary = token.word_index
-print("==========================")
 print("index for each word")
 print(dictonary)
-print("==========================")
 
 #padding
+print("===============padding===============")
+
 pad_sequences = padding(sequences)
 
 for i, (sent, sequence, pad) in enumerate(zip(text, sequences, pad_sequences)):
@@ -35,8 +36,7 @@ for i, (sent, sequence, pad) in enumerate(zip(text, sequences, pad_sequences)):
   print("padding sequences:  {}".format(pad))
   print("==========================")
 
-
-print('Data Preprocessed')
+print("===============full_process===============")
 en_input = read_data("/content/machine_translate/data/small_vocab_en")
 fr_output = read_data("/content/machine_translate/data/small_vocab_fr")
 length = None
@@ -56,8 +56,8 @@ print("Max French sequence length: after processing:", maxlen_fr_sequence)
 
 print("English vocabulary size:", dict_en_size)
 print("French vocabulary size:", dict_fr_size)
-print("==========================")
 
+print("===============ids_to_words===============")
 
 print(ids_to_words([[1, 2, 3, 4],
                     [2 , 1, 4, 0],

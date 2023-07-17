@@ -32,8 +32,8 @@ def show_some_sample_and_some_statics(path_en, path_fr, number_sample=2):
         print("sample {}: {}".format(i+1, data_en[i]))
         print("sample {}: {}".format(i+1, data_fr[i]))
     print("===================Same Statics===================")
-    print("number sentence english is :", len(data_en))
-    print("number sentence english is :", len(data_fr))
+    print("number sentence English is :", len(data_en))
+    print("number sentence French is :", len(data_fr))
     
 def convert_text_to_tokenize(list_of_senetence):
     tokenizer = Tokenizer()
