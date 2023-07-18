@@ -8,8 +8,9 @@ epochs : 10
 validation_split : 0.2
 type_device : "GPU"
 
-# Structural models
+# Structural Models
 
+length_vector_word: 2
 n_neurons_embedding: 256
 n_neurons_rnn: 256
 n_neurons_lstm: 256
