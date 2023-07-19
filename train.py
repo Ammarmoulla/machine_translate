@@ -4,10 +4,8 @@ import argparse
 import yaml
 import pickle
 import tensorflow as tf
-# import wandb
-# from wandb.keras import WandbCallback
-# wandb.login()
-# wandb.init(project='machine_translation')
+import neptune
+from neptune.integrations.tensorflow_keras import NeptuneCallback
 
 def train(config_path):
 
@@ -59,6 +57,18 @@ def train(config_path):
     validation_split = config['validation_split']
     type_device = config['type_device']
     
+
+    #Monitor
+    run = neptune.init_run(
+    name=type_model,  
+    project="ammar.mlops/translate-en-to-fr",
+    api_token="eyJhcGlfYWRkcmVzcyI6Imh0dHBzOi8vYXBwLm5lcHR1bmUuYWkiLCJhcGlfdXJsIjoiaHR0cHM6Ly9hcHAubmVwdHVuZS5haSIsImFwaV9rZXkiOiI5NWE2M2I5My1iZjFmLTRhOWItOGEyNy01YjBlYzMwZmQzNWIifQ==",
+    )
+
+
+    neptune_callback = NeptuneCallback(run=run,
+                                       log_model_diagram=True)
+
     if type_device == "GPU":
       with tf.device('/GPU:0'):
         history = model.fit(
@@ -68,7 +78,7 @@ def train(config_path):
           epochs=epochs,
           validation_split=validation_split,
           shuffle=True,
-          # callbacks=[WandbCallback()]
+          callbacks=[neptune_callback],
           )
     else:
       history = model.fit(
@@ -78,7 +88,7 @@ def train(config_path):
           epochs=epochs,
           validation_split=validation_split,
           shuffle=True,
-          # callbacks=[WandbCallback()]
+          callbacks=[neptune_callback],
           )
     
     model.save('outputs/model.h5')
