@@ -1,6 +1,6 @@
 en_url : "data/small_vocab_en"
 fr_url : "data/small_vocab_fr"
-type_model : "Rnn_Embd"
+type_model : "Rnn_Embd" # use "Rnn" or "Rnn_Embd" or "Lstm" or "Lstm_Embd"
 learning_rate : 0.004
 number_sample : 137861
 batch_size : 512
@@ -8,6 +8,11 @@ epochs : 10
 validation_split : 0.2
 type_device : "GPU"
 
+# Structural Models
 
+length_vector_word: 2
+n_neurons_embedding: 256
+n_neurons_rnn: 256
+n_neurons_lstm: 256
+n_neurons_timedistributed: 1024
 
-# structre model
