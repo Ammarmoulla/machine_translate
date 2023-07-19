@@ -91,7 +91,7 @@ def train(config_path):
           callbacks=[neptune_callback],
           )
     
-    model.save('outputs/model.h5')
+    model.save(f'outputs/model_{type_model}.h5')
 
 
 if __name__ == '__main__':
