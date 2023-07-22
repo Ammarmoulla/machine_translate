@@ -1,7 +1,7 @@
 import os
 import sys
 import pickle
-import np
+import numpy as np
 from keras.models import load_model
 from keras_preprocessing.sequence import pad_sequences
 
