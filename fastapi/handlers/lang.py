@@ -1,4 +1,5 @@
 import os
+from pathlib import Path
 import sys
 import pickle
 import numpy as np
@@ -6,12 +7,17 @@ from keras.models import load_model
 from keras_preprocessing.sequence import pad_sequences
 
 
-model = load_model('../../outputs/model_Lstm_Embd.h5')
+BASE_DIR = Path(__file__).resolve().parent.parent.parent
+MODELS_DIR = os.path.join(BASE_DIR, "outputs")
 
-with open('../../outputs/tokenizer_en.pkl', 'rb') as f:
+path_model = os.path.join(MODELS_DIR, "model_Lstm_Embd.h5")
+print(path_model)
+model = load_model(path_model)
+
+with open(os.path.join(MODELS_DIR, "tokenizer_en.pkl"), 'rb') as f:
     token_en= pickle.load(f)
 
-with open('../../outputs/tokenizer_fr.pkl', 'rb') as f:
+with open(os.path.join(MODELS_DIR, "tokenizer_fr.pkl"), 'rb') as f:
     token_fr = pickle.load(f)
 
 def padding(x, length_of_pad=None, type_pad="pre"):
