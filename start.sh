@@ -1,1 +1,3 @@
-python3 test.py
+#python3 test.py
+cd fastapi
+sh start.sh
