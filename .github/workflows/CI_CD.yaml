@@ -21,22 +21,6 @@ jobs:
         run: |
           docker build . --file Dockerfile --tag ammarmoulla/machine_translate:v1
           docker run ammarmoulla/machine_translate:v1
-<<<<<<< HEAD:.github/workflows/CI.yaml
-          
-  
-  push:
-    name: Push To Docker
-    runs-on: ubuntu-latest
-    needs: [test]
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
-        
-      - name: build and push
-        run: |
-          docker build . --file Dockerfile --tag ammarmoulla/machine_translate:v1
-=======
->>>>>>> dev:.github/workflows/CI_CD.yaml
           docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
           docker push ammarmoulla/machine_translate:v1
           
@@ -44,9 +28,8 @@ jobs:
   deploy:
     name: RUN Web Serivce
     runs-on: ubuntu-latest
-    needs: [test]
+    needs: [train]
     steps: 
-
       - name: Pull and UP Fastapi
         run: |
           docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
