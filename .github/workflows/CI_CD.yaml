@@ -35,5 +35,5 @@ jobs:
         run: |
           docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
           docker pull ammarmoulla/machine_translate:v1
-          docker run --entrypoint "sh" ammarmoulla/machine_translate:v1 ./fastapi/start.sh
+          docker run --name e2e --entrypoint "sh" ammarmoulla/machine_translate:v1 ./fastapi/start.sh
 
