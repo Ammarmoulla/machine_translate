@@ -92,7 +92,7 @@ def train(config_path):
           epochs=epochs,
           validation_split=validation_split,
           shuffle=True,
-          callbacks=[neptune_callback],
+          # callbacks=[neptune_callback],
           )
     
     result_path = os.path.join(BASE_DIR, os.path.join("outputs", f"model_{type_model}.h5"))
