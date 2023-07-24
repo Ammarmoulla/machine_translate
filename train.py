@@ -1,11 +1,16 @@
 from preprocess import read_data, full_process
 from models import motor
+import os
 import argparse
+from pathlib import Path
 import yaml
 import pickle
 import tensorflow as tf
 import neptune
 from neptune.integrations.tensorflow_keras import NeptuneCallback
+
+
+BASE_DIR = Path(__file__).resolve().parent
 
 def train(config_path):
 
@@ -90,7 +95,8 @@ def train(config_path):
           callbacks=[neptune_callback],
           )
     
-    model.save(f'outputs/model_{type_model}.h5')
+    result_path = os.path.join(BASE_DIR, os.path.join("outputs", f"model_{type_model}.h5"))
+    model.save(result_path)
 
 
 if __name__ == '__main__':
