@@ -41,11 +41,10 @@ def train(config_path):
     n_neurons_timedistributed = config['n_neurons_timedistributed']
     learning_rate = config['learning_rate']
     model = motor(input_shape,
-                  length_vector_word,
                   dict_en_size, 
                   dict_fr_size, 
                   type_model,
-                  n_neurons_embedding,
+                  length_vector_word,
                   n_neurons_rnn,
                   n_neurons_lstm,
                   n_neurons_timedistributed,

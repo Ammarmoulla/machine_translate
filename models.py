@@ -5,11 +5,10 @@ from keras.losses import sparse_categorical_crossentropy
 
 
 def motor(input_shape,
-          length_vector_word,
           dict_en_size, 
           dict_fr_size, 
           type_model,
-          n_neurons_embedding,
+          length_vector_word,
           n_neurons_rnn,
           n_neurons_lstm,
           n_neurons_timedistributed,

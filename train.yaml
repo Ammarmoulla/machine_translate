@@ -1,6 +1,6 @@
 en_url : "data/small_vocab_en"
 fr_url : "data/small_vocab_fr"
-type_model : "LSTM_Embd" # use "Rnn" or "Rnn_Embd" or "Lstm" or "Lstm_Embd"
+type_model : "Lstm_Embd" # use "Rnn" or "Rnn_Embd" or "Lstm" or "Lstm_Embd"
 learning_rate : 0.004
 number_sample : 137861
 batch_size : 512
