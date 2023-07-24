@@ -3,7 +3,7 @@ from www import app
 from waitress import serve
 import routes
 
-port = os.getenv("PORT")
+port = 9000
 
 if __name__ == '__main__':
     print("Server is running on port: " + port)

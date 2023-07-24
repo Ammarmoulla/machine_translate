@@ -14,6 +14,10 @@ path_model = os.path.join(MODELS_DIR, "model_Lstm_Embd.h5")
 print(path_model)
 model = load_model(path_model)
 
+path_model = os.path.join(MODELS_DIR, "model_Lstm_Embd.h5")
+print(path_model)
+model = load_model(path_model)
+
 with open(os.path.join(MODELS_DIR, "tokenizer_en.pkl"), 'rb') as f:
     token_en= pickle.load(f)
 
@@ -44,6 +48,8 @@ def en_to_fr(en_text):
       if word != "<P>":
         fr_text += word + " "
 
+
+    # fr_text = "new jersey est parfois calme "
     fr_text = fr_text[:-1]
     
     result = {

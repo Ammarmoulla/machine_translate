@@ -5,7 +5,7 @@ from .lang import *
 async def index():
     result = {
         "code":"200",
-        "message":"Hello World"
+        "message":"I am Ready"
     }
     return result
 

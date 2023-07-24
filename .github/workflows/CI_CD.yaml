@@ -1,0 +1,55 @@
+name: CI/CD
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+
+  train:
+    name: RUN Train and Push To Docker
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Build Docker Image and Run Tests and Train
+        run: |
+          docker build . --file Dockerfile --tag ammarmoulla/machine_translate:v1
+          docker run ammarmoulla/machine_translate:v1
+<<<<<<< HEAD:.github/workflows/CI.yaml
+          
+  
+  push:
+    name: Push To Docker
+    runs-on: ubuntu-latest
+    needs: [test]
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+        
+      - name: build and push
+        run: |
+          docker build . --file Dockerfile --tag ammarmoulla/machine_translate:v1
+=======
+>>>>>>> dev:.github/workflows/CI_CD.yaml
+          docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
+          docker push ammarmoulla/machine_translate:v1
+          
+  
+  deploy:
+    name: RUN Web Serivce
+    runs-on: ubuntu-latest
+    needs: [test]
+    steps: 
+
+      - name: Pull and UP Fastapi
+        run: |
+          docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
+          docker pull ammarmoulla/machine_translate:v1
+          docker run --entrypoint "sh" ammarmoulla/machine_translate:v1 ./fastapi/start.sh
+
