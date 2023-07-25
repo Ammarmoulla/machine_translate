@@ -24,6 +24,9 @@ jobs:
           docker run ammarmoulla/machine_translate:v1
           docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
           docker push ammarmoulla/machine_translate:v1
+          curl -X POST "https://api.telegram.org/bot${{ secrets.AUTH_Telegram }}/sendMessage" \
+          -d "chat_id=${{secrets.CHAT_ID}}" \
+          -d "text=Train is Done!! and Push New image to DockerHub"
           
   
   deploy:
@@ -35,5 +38,7 @@ jobs:
         run: |
           docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
           docker pull ammarmoulla/machine_translate:v1
-          docker run --name e2e --entrypoint "sh" ammarmoulla/machine_translate:v1 ./fastapi/start.sh
-
+          docker run --entrypoint "sh" ammarmoulla/machine_translate:v1 ./fastapi/start.sh
+          curl -X POST "https://api.telegram.org/bot${{ secrets.AUTH_Telegram }}/sendMessage" \
+          -d "chat_id=${{secrets.CHAT_ID}}" \
+          -d "text=Deploy is Done!!"
