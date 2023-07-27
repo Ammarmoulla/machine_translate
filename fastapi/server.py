@@ -34,12 +34,4 @@ if __name__ == '__main__':
     nest_asyncio.apply()
     uvicorn.run(app, port=port)
     
-    allowed_requests = 2
-    request_count = 0
-    while True:
-        request_count += 1
 
-        if request_count > allowed_requests:
-            ngrok.disconnect(public_url)
-            ngrok.kill()
-            break

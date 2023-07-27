@@ -14,10 +14,6 @@ path_model = os.path.join(MODELS_DIR, "model_Lstm_Embd.h5")
 print(path_model)
 model = load_model(path_model)
 
-path_model = os.path.join(MODELS_DIR, "model_Lstm_Embd.h5")
-print(path_model)
-model = load_model(path_model)
-
 with open(os.path.join(MODELS_DIR, "tokenizer_en.pkl"), 'rb') as f:
     token_en= pickle.load(f)
 
