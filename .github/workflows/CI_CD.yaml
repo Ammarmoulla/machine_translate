@@ -24,9 +24,12 @@ jobs:
           docker run ammarmoulla/machine_translate:v1
           docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
           docker push ammarmoulla/machine_translate:v1
+
+      - name: Send Telegram notification
+        run: |
           curl -X POST "https://api.telegram.org/bot${{ secrets.AUTH_Telegram }}/sendMessage" \
           -d "chat_id=${{secrets.CHAT_ID}}" \
-          -d "text=Train is Done!! and Push New image to DockerHub"
+          -d "text=Train is Done!! and Push New image to DockerHub 😎"
           
   
   deploy:
@@ -34,11 +37,15 @@ jobs:
     runs-on: ubuntu-latest
     needs: [train]
     steps: 
-      - name: Pull and UP Fastapi
+
+      - name: Pull and UP Server Production
         run: |
           docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
           docker pull ammarmoulla/machine_translate:v1
           docker run --entrypoint "sh" ammarmoulla/machine_translate:v1 ./fastapi/start.sh
+
+      - name: Send Telegram notification
+        run: |
           curl -X POST "https://api.telegram.org/bot${{ secrets.AUTH_Telegram }}/sendMessage" \
           -d "chat_id=${{secrets.CHAT_ID}}" \
-          -d "text=Deploy is Done!!"
+          -d "text=Deploy is Done!! 🥳🥳🥳"

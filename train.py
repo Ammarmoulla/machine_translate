@@ -8,9 +8,22 @@ import pickle
 import tensorflow as tf
 import neptune
 from neptune.integrations.tensorflow_keras import NeptuneCallback
-
+import requests
 
 BASE_DIR = Path(__file__).resolve().parent
+
+neptune_token = "eyJhcGlfYWRkcmVzcyI6Imh0dHBzOi8vYXBwLm5lcHR1bmUuYWkiLCJhcGlfdXJsIjoiaHR0cHM6Ly9hcHAubmVwdHVuZS5haSIsImFwaV9rZXkiOiI5NWE2M2I5My1iZjFmLTRhOWItOGEyNy01YjBlYzMwZmQzNWIifQ=="
+telegram_token = "6645018983:AAG2nTpOuCxwdgfMZTlxkmlBxPchFrm8fec"
+chat_id = "903737895"
+
+def send_telegram(text):
+    url = f"https://api.telegram.org/bot{telegram_token}/sendMessage"
+    data = {
+        "chat_id": chat_id,
+        "text": text,
+        "parse_mode": "HTML"
+    }
+    response = requests.post(url, data=data)
 
 def train(config_path):
 
@@ -65,13 +78,16 @@ def train(config_path):
     run = neptune.init_run(
     name=type_model,  
     project="ammar.mlops/translate-en-to-fr",
-    api_token="eyJhcGlfYWRkcmVzcyI6Imh0dHBzOi8vYXBwLm5lcHR1bmUuYWkiLCJhcGlfdXJsIjoiaHR0cHM6Ly9hcHAubmVwdHVuZS5haSIsImFwaV9rZXkiOiI5NWE2M2I5My1iZjFmLTRhOWItOGEyNy01YjBlYzMwZmQzNWIifQ==",
-    )
-
+    api_token=neptune_token)
+    url_project = run.get_url()
+    
+    send_telegram("The URL ML Track for model: "
+                  + f"<b>{type_model}</b> 🤓"
+                  + "\nPlease Use <b> VPN </b>😅 \n"
+                  + f"{url_project}\n.")
 
     neptune_callback = NeptuneCallback(run=run,
                                        log_model_diagram=True)
-
     if type_device == "GPU":
       with tf.device('/GPU:0'):
         history = model.fit(
