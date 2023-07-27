@@ -35,6 +35,7 @@ jobs:
   deploy:
     name: RUN Web Serivce
     runs-on: ubuntu-latest
+    timeout-minutes: 10
     needs: [train]
     steps: 
 
