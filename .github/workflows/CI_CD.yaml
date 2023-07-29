@@ -21,9 +21,11 @@ jobs:
       - name: Build Docker Image and Run Tests and Train
         run: |
           docker build . --file Dockerfile --tag ammarmoulla/machine_translate:v1
-          docker run ammarmoulla/machine_translate:v1
+          docker run --name e2e ammarmoulla/machine_translate:v1
+          docker start e2e
+          docker commit e2e ammarmoulla/lang:v1
           docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
-          docker push ammarmoulla/machine_translate:v1
+          docker push ammarmoulla/lang:v1
 
       - name: Send Telegram notification
         run: |
@@ -35,18 +37,11 @@ jobs:
   deploy:
     name: RUN Web Serivce
     runs-on: ubuntu-latest
-    timeout-minutes: 10
     needs: [train]
     steps: 
 
       - name: Pull and UP Server Production
         run: |
           docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
-          docker pull ammarmoulla/machine_translate:v1
-          docker run --entrypoint "sh" ammarmoulla/machine_translate:v1 ./fastapi/start.sh
-
-      - name: Send Telegram notification
-        run: |
-          curl -X POST "https://api.telegram.org/bot${{ secrets.AUTH_Telegram }}/sendMessage" \
-          -d "chat_id=${{secrets.CHAT_ID}}" \
-          -d "text=Deploy is Done!! 🥳🥳🥳"
+          docker pull ammarmoulla/lang:v1
+          docker run --entrypoint "sh" ammarmoulla/lang:v1 ./fastapi/start.sh
