@@ -121,3 +121,16 @@ if __name__ == '__main__':
 
    config_path = args.config_path
    train(config_path)
+
+import yaml
+config_path = "config.yaml"
+with open(config_path, 'r') as file:
+    config_para = yaml.safe_load(file)
+
+image = config_para['image']
+classesf = config_para['classesf']
+weights = config_para['weights']
+config = config_para['config']
+scale = config_para['scale']
+classes = config_para['classes']
+
