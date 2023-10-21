@@ -5,4 +5,4 @@ You can find the complete description of the project in doc_project.pdf.
 And this image explians the project from planning to production.
 
 
-![alt text](https://github.com/Ammarmoulla/machine_translate/blob/main/image.jpg?raw=true)
+![alt text](https://github.com/Ammarmoulla/machine_translate/blob/main/mlops.png?raw=true)
